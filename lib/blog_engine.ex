@@ -33,14 +33,16 @@ defmodule BlogEngine do
     %{yaml: yaml, body: body, basename: Path.basename(text[:filename])}
   end
 
+  def remove_drafts(posts) do
+    Enum.reject(posts, fn x -> Map.has_key?(x[:yaml], "draft") end)
+  end
+
   def write_post(post) do
-    # cjkinni.com is our base directory
     File.write("../cjkinni.com/words/#{post[:basename]}", render_post(post))
     post
   end
 
   def write_index(posts) do
-    # cjkinni.com is our base directory
     File.write("../cjkinni.com/index.html", render_index(posts))
     posts
   end
