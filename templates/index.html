@@ -14,7 +14,7 @@
         <h1>Words</h1>
         <div class="short">
           <%= for post <- posts do %>
-            <p>- <%= post[:yaml]["date"] %> - <a href="/words/<%= post[:basename] %>"><%= post[:yaml]["title"] %></a></p>
+            <p>- <%= post["date"] %> - <a href="/words/<%= post[:basename] %>"><%= post["title"] %></a></p>
           <% end %>
         </div>
       </content>

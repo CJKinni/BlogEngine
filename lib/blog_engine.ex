@@ -27,14 +27,17 @@ defmodule BlogEngine do
     %{filename: filename, contents: contents}
   end
 
-  def split_header(text) do
-    [header | body] = String.split(text[:contents], "---")
+  def split_header(text, url_prefix) do
+    [header | body_array] = String.split(text[:contents], "---")
+    [body] = body_array
+    basename = Path.basename(text[:filename])
+    url = url_prefix <> basename
     {_, yaml} = YamlElixir.read_from_string(header)
-    %{yaml: yaml, body: body, basename: Path.basename(text[:filename])}
+    Map.merge(yaml, %{body: body, url: url, basename: basename})
   end
 
   def remove_drafts(posts) do
-    Enum.reject(posts, fn x -> Map.has_key?(x[:yaml], "draft") end)
+    Enum.reject(posts, fn x -> Map.has_key?(x, "draft") end)
   end
 
   def write_post(post) do
@@ -47,21 +50,31 @@ defmodule BlogEngine do
     posts
   end
 
+  def write_atom(posts, site_info) do
+    File.write("../cjkinni.com/atom.xml", render_atom(posts, site_info))
+    posts
+  end
+
   def get_template(filename) do
     {_, contents} = File.read("./templates/#{filename}")
     contents
   end
 
+  def md_to_html(markdown) do
+    Earmark.as_html!(markdown, compact_output: true, escape: false, smartypants: false)
+  end
+
   def render_post(post) do
-    [body] = post[:body]
-    yaml = post[:yaml]
-    IO.inspect(yaml)
-    IO.inspect(yaml["title"])
-    html_doc = Earmark.as_html!(body, compact_output: true, escape: false, smartypants: false)
-    EEx.eval_string(BlogEngine.get_template("words.html"), body: html_doc, title: yaml["title"])
+    html_doc = md_to_html(post[:body])
+    EEx.eval_string(BlogEngine.get_template("words.html"), body: html_doc, title: post[:title])
   end
 
   def render_index(posts) do
     EEx.eval_string(BlogEngine.get_template("index.html"), posts: posts)
+  end
+
+  def render_atom(posts, site_info) do
+    last_updated = List.first(posts)["date"] <> "T05:00:00.Z"
+    EEx.eval_string(BlogEngine.get_template("atom.xml"), posts: posts, site: site_info, last_updated: last_updated)
   end
 end
