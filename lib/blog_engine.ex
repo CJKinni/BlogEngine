@@ -12,6 +12,12 @@ defmodule BlogEngine do
       :world
 
   """
+
+  def clear_directory(folder) do
+    BlogEngine.get_folder_contents(folder) |>
+    Enum.map(fn x -> File.rm(x) end)
+  end
+
   def get_folder_contents(folder) do
     Path.wildcard("#{folder}/*")
   end

@@ -3,6 +3,7 @@
 # Run our Build Script
 # This builds the templates in ./templates from our text in ./words
 # and outputs the results to ../cjkinni.com
+# It also moves any static files in ./static to ../cjkinni.com
 mix run build.ex
 
 # Save any changes
