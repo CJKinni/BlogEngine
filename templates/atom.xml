@@ -4,23 +4,24 @@
 
 	<title><%= site[:title] %></title>
 	<subtitle><%= site[:subtitle] %></subtitle>
-	<link href="<%= site[:url] %>" rel="self" />
-	<id><%= site[:url] %></id>
+	<link href="<%= site[:url] %>" />
+	<id><%= site[:url] %>/</id>
 	<updated><%= last_updated %></updated>
 	
 	<%= for post <- posts do %>
 	<entry>
 		<title><%= post["title"] %></title>
-		<link href="<%= post[:url] %>" />
-		<id><%= post[:url] %></id>
+		<link href="<%= site[:url] <> post[:url] %>" />
+		<id><%= site[:url] <> post[:url] %></id>
 		<updated><%= post["date"] <> "T05:00:00.Z" %></updated>
 		<content>
-			<%= BlogEngine.md_to_html(post[:body]) %>
+			<%= HtmlEntities.encode(BlogEngine.md_to_html(post[:body])) %>
 		</content>
 		<author>
 			<name><%= site[:author][:name] %></name>
 			<email><%= site[:author][:email] %></email>
 		</author>
+	</entry>
 	<% end %>
 
 </feed>

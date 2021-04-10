@@ -22,7 +22,8 @@ defmodule BlogEngine.MixProject do
   defp deps do
     [
       { :earmark, ">= 1.4.14" },
-      { :yaml_elixir, "~> 2.6" }
+      { :yaml_elixir, "~> 2.6" },
+      { :html_entities, "~> 0.5" }
     ]
   end
 end

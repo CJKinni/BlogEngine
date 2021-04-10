@@ -4,7 +4,7 @@ Enum.map(fn x -> BlogEngine.clear_directory(x) end)
 
 site_info = %{
 	title: "CJKinni.com",
-	subtitle: "",
+	subtitle: "😊",
 	url: "https://cjkinni.com",
 	author: %{
 		name: "CJKinni",
