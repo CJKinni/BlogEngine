@@ -10,6 +10,21 @@ First, there's a proxy server to assist me in developing against heavily ratelim
 
 Second, is the [little tool](https://github.com/CJKinni/BlogEngine) I'm using to generate [this site](https://github.com/CJKinni/cjkinni.github.io).  It's basically a MVP static-site generator.  That is, it takes a folder of [Markdown](https://daringfireball.net/projects/markdown/) formatted documents and spits out a table of context and some nicely formatted blog posts.  Eventually I'll add an Atom feed, and maybe some other nice features.  This was an evening project today, and it took about two hours while watching TV with Laura.  It's _very_ janky, but it's also _very_ simple, which I like.
 
-It basically consists of 
+It basically consists of a few files:
 
-I enjoyed writing the code.  I'm still not sure what the result of my deep dive into category theory will be, but for now I'm enjoying the ride.
+
+/lib/blog_engine.ex:
+
+This consists of nine simple helper functions that do various things like delete all the files in a directory, get a directory list, parse a blogpost, and render the templates.  There are some hardcoded paths I'd like to move out of the tool, but I think it's fine for now.
+
+/build.ex:
+
+This is where the magic happens.  It's almost exclusively written using the `|>` pipe operator, and passing lists through a bunch of functions that do the real work.  I'm not sure this is ideal, but it's really simple to think about composing these little functions like this.  It deletes the last version of the site, re-generates from the source files, and replaces any deleted static files I want.
+
+/generate.sh:
+
+This runs /build.ex, then commits changes to both my BlogEngine repository and the repository that runs CJKinni.com, so that the changes will go live on CJKinni.com within a few minutes.
+
+I enjoyed writing the code.  It's very straightforward, and I _think_ that it will be easier to return to than some of the other coding projects I've taken breaks from.
+
+I'm still not sure what the result of my deep dive into category theory will be, but for now I'm enjoying the ride.
