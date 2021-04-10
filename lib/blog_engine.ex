@@ -66,7 +66,7 @@ defmodule BlogEngine do
 
   def render_post(post) do
     html_doc = md_to_html(post[:body])
-    EEx.eval_string(BlogEngine.get_template("words.html"), body: html_doc, title: post[:title])
+    EEx.eval_string(BlogEngine.get_template("words.html"), body: html_doc, title: post["title"])
   end
 
   def render_index(posts) do
