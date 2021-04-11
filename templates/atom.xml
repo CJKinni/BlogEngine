@@ -13,7 +13,7 @@
 		<title><%= post["title"] %></title>
 		<link href="<%= site[:url] <> post[:url] %>" />
 		<id><%= site[:url] <> post[:url] %></id>
-		<updated><%= post["date"] <> "T05:00:00.Z" %></updated>
+		<updated><%= post["date"] <> "T05:00:00Z" %></updated>
 		<content>
 			<%= HtmlEntities.encode(BlogEngine.md_to_html(post[:body])) %>
 		</content>
