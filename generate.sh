@@ -12,7 +12,7 @@ git commit -m "New Update (Automated)"
 git push
 
 # Go to ../cjkinni.com
-cd ../cjkinni.com
+cd ../cjkinni.github.io
 
 # Save our changes there for our static site to pickup.
 git add .
