@@ -24,4 +24,4 @@ BlogEngine.write_atom(site_info)
 
 # Copy static files
 BlogEngine.get_folder_contents("./static") |>
-Enum.map(fn x -> File.copy(x, "../cjkinni.com/#{Path.basename(x)}") end)
+Enum.map(fn x -> File.copy(x, "../cjkinni.github.io/#{Path.basename(x)}") end)
