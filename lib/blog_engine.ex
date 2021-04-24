@@ -41,17 +41,17 @@ defmodule BlogEngine do
   end
 
   def write_post(post) do
-    File.write("../cjkinni.com/words/#{post[:basename]}", render_post(post))
+    File.write("../cjkinni.github.io/words/#{post[:basename]}", render_post(post))
     post
   end
 
   def write_index(posts) do
-    File.write("../cjkinni.com/index.html", render_index(posts))
+    File.write("../cjkinni.github.io/index.html", render_index(posts))
     posts
   end
 
   def write_atom(posts, site_info) do
-    File.write("../cjkinni.com/atom.xml", render_atom(posts, site_info))
+    File.write("../cjkinni.github.io/atom.xml", render_atom(posts, site_info))
     posts
   end
 
