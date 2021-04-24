@@ -1,5 +1,5 @@
 # Remove previous versions
-["../cjkinni.com", "../cjkinni.com/words"] |>
+["../cjkinni.github.io", "../cjkinni.github.io/words"] |>
 Enum.map(fn x -> BlogEngine.clear_directory(x) end)
 
 site_info = %{
